@@ -6,7 +6,7 @@ import { useNotifications } from '../lib/useNotifications'
 import { getTeamName, getScore, isLive, isFinished, isUpcoming, calcPoints } from '../lib/utils'
 
 
-const API = 'https://worldcup26.ir/get/'
+const API = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/'
 
 export default function Home() {
   const [tab, setTab] = useState('matchs')
@@ -18,21 +18,15 @@ export default function Home() {
   const { granted, requestNotif } = useNotifications(games)
 
   async function fetchData() {
-    try {
-      const [gRes, grRes] = await Promise.all([
-        fetch(API + 'games').catch(() => null),
-        fetch(API + 'groups').catch(() => null),
-      ])
-      if (gRes?.ok) {
-        const data = await gRes.json()
-        setGames(Array.isArray(data) ? data : Object.values(data))
-      }
-      if (grRes?.ok) {
-        const data = await grRes.json()
-        setGroups(Array.isArray(data) ? data : Object.values(data))
-      }
-    } catch (e) {}
-  }
+  try {
+    const res = await fetch(API + 'worldcup.json').catch(() => null)
+    if (res?.ok) {
+      const data = await res.json()
+      const matches = data.matches || []
+      setGames(matches)
+    }
+  } catch (e) {}
+}
 
   useEffect(() => {
     fetchData()
@@ -40,9 +34,9 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  const liveGames = games.filter(isLive)
-  const finishedGames = games.filter(isFinished).slice(-6).reverse()
-  const upcomingGames = games.filter(isUpcoming).slice(0, 6)
+  const liveGames = []
+const finishedGames = games.filter(g => g.score).slice(-6).reverse()
+const upcomingGames = games.filter(g => !g.score).slice(0, 6)fix
 
   const totalPts = getTotalPoints()
   const pronoList = Object.entries(pronos)
