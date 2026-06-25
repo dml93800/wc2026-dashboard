@@ -23,8 +23,14 @@ export default function Home() {
         fetch(API + 'games').catch(() => null),
         fetch(API + 'groups').catch(() => null),
       ])
-      if (gRes?.ok) setGames(await gRes.json())
-      if (grRes?.ok) setGroups(await grRes.json())
+      if (gRes?.ok) {
+        const data = await gRes.json()
+        setGames(Array.isArray(data) ? data : Object.values(data))
+      }
+      if (grRes?.ok) {
+        const data = await grRes.json()
+        setGroups(Array.isArray(data) ? data : Object.values(data))
+      }
     } catch (e) {}
   }
 
