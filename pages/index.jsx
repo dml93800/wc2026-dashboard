@@ -4,7 +4,7 @@ import MatchCard from '../components/MatchCard'
 import { usePronos } from '../lib/usePronos'
 import { useNotifications } from '../lib/useNotifications'
 import { getTeamName, getScore, isLive, isFinished, isUpcoming, calcPoints } from '../lib/utils'
-import styles from '../styles/globals.css'
+
 
 const API = 'https://worldcup26.ir/get/'
 
