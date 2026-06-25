@@ -9,10 +9,10 @@ export default function MatchCard({ game, prono, onSaveProno }) {
   const [analysis, setAnalysis] = useState(null)
   const [loadingAI, setLoadingAI] = useState(false)
 
-  const home = typeof game.home_team === 'string' ? game.home_team : (game.home_team?.name || game.homeTeam?.name || game.home_team?.country || '?')
-  const away = typeof game.away_team === 'string' ? game.away_team : (game.away_team?.name || game.awayTeam?.name || game.away_team?.country || '?')
-  const hs = getScore(game, 'home')
-  const as_ = getScore(game, 'away')
+  const home = game.team1 || '?'
+const away = game.team2 || '?'
+const hs = game.score?.ft?.[0] ?? null
+const as_ = game.score?.ft?.[1] ?? null
   const live = isLive(game)
   const finished = isFinished(game)
   const upcoming = !live && !finished
