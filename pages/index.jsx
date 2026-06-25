@@ -19,7 +19,7 @@ export default function Home() {
 
   async function fetchData() {
   try {
-    const res = await fetch(API + 'worldcup.json').catch(() => null)
+    const res = await fetch('/api/matches').catch(() => null)
     if (res?.ok) {
       const data = await res.json()
       const matches = data.matches || []
