@@ -36,7 +36,7 @@ export default function Home() {
 
   const liveGames = []
 const finishedGames = games.filter(g => g.score).slice(-6).reverse()
-const upcomingGames = games.filter(g => !g.score).slice(0, 6)fix
+const upcomingGames = games.filter(g => !g.score).slice(0, 6)
 
   const totalPts = getTotalPoints()
   const pronoList = Object.entries(pronos)
