@@ -6,4 +6,4 @@ const nextConfig = {
     domains: ['flagcdn.com', 'images.pexels.com'],
   },
 }
-module.exports = nextConfig 
+module.exports = nextConfig
